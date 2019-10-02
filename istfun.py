@@ -49,7 +49,7 @@ def total_variation_loss(x,IMAGE_HEIGHT,IMAGE_WIDTH,TOTAL_VARIATION_LOSS_FACTOR)
       
 def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500, 
                          CHANNELS = 3,ITERATIONS = 10,CONTENT_WEIGHT = 0.02,STYLE_WEIGHT = 4.5,
-                  TOTAL_VARIATION_WEIGHT = 0.995,TOTAL_VARIATION_LOSS_FACTOR = 1.25):
+                         TOTAL_VARIATION_WEIGHT = 0.995,TOTAL_VARIATION_LOSS_FACTOR = 1.25):
     # Model
     content_image = content.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
     style_image = style.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
@@ -119,6 +119,4 @@ def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500,
     x[:, :, 1] += IMAGENET_MEAN_RGB_VALUES[1]
     x[:, :, 2] += IMAGENET_MEAN_RGB_VALUES[0]
     x = np.clip(x, 0, 255).astype("uint8")
-    output_image = Image.fromarray(x)
-    
-    return output_image
+    return x
