@@ -1,12 +1,14 @@
 # imports
 import numpy as np
 import os
+import tensorflow as tf
+tf.logging.set_verbosity(tf.logging.ERROR)
 from keras import backend
 from keras.models import Model
 from keras.applications.vgg16 import VGG16
 
 from scipy.optimize import fmin_l_bfgs_b
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 
 IMAGENET_MEAN_RGB_VALUES = [123.68, 116.779, 103.939]
 
