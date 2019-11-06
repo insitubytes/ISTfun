@@ -2,7 +2,7 @@
 import numpy as np
 import os
 import tensorflow as tf
-tf.logging.set_verbosity(tf.logging.ERROR)
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 from keras import backend
 from keras.models import Model
 from keras.applications.vgg16 import VGG16
