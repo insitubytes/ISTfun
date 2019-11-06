@@ -13,7 +13,7 @@ from PIL import Image
 IMAGENET_MEAN_RGB_VALUES = [123.68, 116.779, 103.939]
 
 
-def convert_image(img):
+def convert_to_image_array(img):
     # Data normalization and reshaping from RGB to BGR
     image_array = np.asarray(img, dtype="float32")
     image_array = np.expand_dims(image_array, axis=0)
@@ -47,7 +47,7 @@ def total_variation_loss(x,IMAGE_HEIGHT,IMAGE_WIDTH,TOTAL_VARIATION_LOSS_FACTOR)
     return backend.sum(backend.pow(a + b, TOTAL_VARIATION_LOSS_FACTOR))
   
 
-def convert_image(img):
+def convert_to_pil_image(img):
     if type(img) ==  np.ndarray:
         if img.dtype != np.uint8:
             img = (img*255).astype(np.unit8) 
@@ -58,13 +58,13 @@ def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500,
                          CHANNELS = 3,ITERATIONS = 10,CONTENT_WEIGHT = 0.02,STYLE_WEIGHT = 4.5,
                          TOTAL_VARIATION_WEIGHT = 0.995,TOTAL_VARIATION_LOSS_FACTOR = 1.25):
     # Model
-    content = convert_image(content)
-    style = convert_image(style)
+    content = convert_to_pil_image(content)
+    style = convert_to_pil_image(style)
     content_image = content.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
     style_image = style.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
 
-    input_image_array = convert_image(content_image)
-    style_image_array = convert_image(style_image)
+    input_image_array = convert_to_image_array(content_image)
+    style_image_array = convert_to_image_array(style_image)
     
     input_image = backend.variable(input_image_array)
     style_image = backend.variable(style_image_array)
@@ -130,5 +130,5 @@ def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500,
     x[:, :, 2] += IMAGENET_MEAN_RGB_VALUES[0]
     x = np.clip(x, 0, 255).astype("uint8")
 
-    output_image = convert_image(x).resize(content_image.size)
+    output_image = convert_to_image_array(x).resize(content_image.size)
     return output_image
