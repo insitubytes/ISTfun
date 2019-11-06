@@ -8,7 +8,7 @@ from keras.models import Model
 from keras.applications.vgg16 import VGG16
 
 from scipy.optimize import fmin_l_bfgs_b
-
+from PIL import Image
 
 IMAGENET_MEAN_RGB_VALUES = [123.68, 116.779, 103.939]
 
@@ -47,14 +47,22 @@ def total_variation_loss(x,IMAGE_HEIGHT,IMAGE_WIDTH,TOTAL_VARIATION_LOSS_FACTOR)
     return backend.sum(backend.pow(a + b, TOTAL_VARIATION_LOSS_FACTOR))
   
 
-      
+def convert_image(img):
+    if type(img) ==  np.ndarray:
+        if img.dtype != np.uint8:
+            img = (img*255).astype(np.unit8) 
+        img = Image.fromarray(img)  
+    return img    
       
 def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500, 
                          CHANNELS = 3,ITERATIONS = 10,CONTENT_WEIGHT = 0.02,STYLE_WEIGHT = 4.5,
                          TOTAL_VARIATION_WEIGHT = 0.995,TOTAL_VARIATION_LOSS_FACTOR = 1.25):
     # Model
+    content_image = convert_image(content_image)
+    style_image = convert_image(content_image)
     content_image = content.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
     style_image = style.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
+
     input_image_array = convert_image(content_image)
     style_image_array = convert_image(style_image)
     
@@ -121,4 +129,6 @@ def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500,
     x[:, :, 1] += IMAGENET_MEAN_RGB_VALUES[1]
     x[:, :, 2] += IMAGENET_MEAN_RGB_VALUES[0]
     x = np.clip(x, 0, 255).astype("uint8")
-    return x
+
+    output_image = convert_image(x).resize(content_image.size)
+    return output_image
