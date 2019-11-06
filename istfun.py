@@ -57,6 +57,20 @@ def convert_to_pil_image(img):
 def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500, 
                          CHANNELS = 3,ITERATIONS = 10,CONTENT_WEIGHT = 0.02,STYLE_WEIGHT = 4.5,
                          TOTAL_VARIATION_WEIGHT = 0.995,TOTAL_VARIATION_LOSS_FACTOR = 1.25):
+    """ A function performing an image-style-transfer as described in 
+        https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
+        
+        content,style            - images in ndarray or PIL.Image format.
+        IMAGE_HEIGHT,IMAGE_WIDTH - Images are rescaled to this size for the computations.
+        CHANNELS                 - Number of image channels
+        ITERATIONS               - Iterations of the optimization loop
+        
+        The othe Parameters are as described in the reference.
+
+        Output: A PIL.Image with the same dimensions as content image.
+        """
+        
+
     # Model
     content = convert_to_pil_image(content)
     style = convert_to_pil_image(style)
