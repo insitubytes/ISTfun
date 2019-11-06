@@ -130,5 +130,5 @@ def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500,
     x[:, :, 2] += IMAGENET_MEAN_RGB_VALUES[0]
     x = np.clip(x, 0, 255).astype("uint8")
 
-    output_image = convert_to_image_array(x).resize(content_image.size)
+    output_image = convert_to_pil_image(x).resize(content_image.size)
     return output_image
