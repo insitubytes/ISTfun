@@ -58,8 +58,8 @@ def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500,
                          CHANNELS = 3,ITERATIONS = 10,CONTENT_WEIGHT = 0.02,STYLE_WEIGHT = 4.5,
                          TOTAL_VARIATION_WEIGHT = 0.995,TOTAL_VARIATION_LOSS_FACTOR = 1.25):
     # Model
-    content_image = convert_image(content_image)
-    style_image = convert_image(content_image)
+    content = convert_image(content)
+    style = convert_image(style)
     content_image = content.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
     style_image = style.resize((IMAGE_WIDTH, IMAGE_HEIGHT))
 
