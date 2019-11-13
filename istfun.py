@@ -61,13 +61,13 @@ def image_style_transfer(content,style,IMAGE_HEIGHT = 500, IMAGE_WIDTH = 500,
         https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Gatys_Image_Style_Transfer_CVPR_2016_paper.pdf
         
         content,style            - images in ndarray or PIL.Image format.
-        IMAGE_HEIGHT,IMAGE_WIDTH - Images are rescaled to this size for the computations.
-        CHANNELS                 - Number of image channels
-        ITERATIONS               - Iterations of the optimization loop
+        IMAGE_HEIGHT,IMAGE_WIDTH - images are rescaled to this size for the computations.
+        CHANNELS                 - number of image channels.
+        ITERATIONS               - iterations of the optimization loop.
         
-        The othe Parameters are as described in the reference.
+        The other Parameters are as described in the reference.
 
-        Output: A PIL.Image with the same dimensions as content image.
+        Output: A PIL.Image with the same dimensions as the content image.
         """
         
 
